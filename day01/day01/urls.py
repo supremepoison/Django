@@ -14,8 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls import url
+from .views import *
 
+dic = {
+    'name':'wangwc',
+    'age':18,
+}
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^login/', admin.site.urls),
+    url(r'^show/(\d{4})/$',show1_views),
+    # url(r'sh',sh_views),
+    url(r'^show/$',show_views),
+    url(r'^show/(\d{4})/(\d{2})/(\d{2})/$',show2_views),
+    #当访问路径为 /show3/的时候
+    url(r'^show3/$',show3_views,dic)
+
+
 ]

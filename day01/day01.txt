@@ -53,3 +53,41 @@ Django
                 创建后台管理员:
 
         2.主目录(与项目名称一致的目录)
+            1.__init__.py
+                初始化文件,服务启动时自动运行
+            2.urls.py
+                项目的基础url配置文件(基础的路由配置)
+            3.wsgi.py
+                Web Server Gateway Interface
+            4.settings.py
+                项目的主配置文件,启动服务器时自动启动
+                1.BASE_DIR:获取当前项目的绝对路径
+
+                2.DEBUG: 是否启用调试模式
+                  True: 启动调试模式(开发环境使用)
+                  False: 不启用调试(生产环境中使用)
+
+                3.ALLOW_HOSTS
+                    设置允许访问到本项目的地址列表
+                    如果为空的话,表示只有本机(127.0.0.1/localhost)才能访问
+
+                    如果允许在局域网被其他机器访问的话:
+                    推荐写['*'],表示任何能够表示该机器的地址都能
+                    够访问到当前项目
+
+                    如果允许被其他机器访问的话,启动服务时必须使用
+                    以下方式i:
+                    ./manage.py runserver 0.0.0.0:端口号
+
+                4.INSTALLED_APPS
+                    指定已安装的应用,如果有自定义应用的话,必须要在此注册
+                5.MIDDLEWARE
+                    指定中间件信息
+                6.TEMPLATES
+                    指定模板配置
+                7.DATABASES
+                    制动数据库配置
+                8.LANGUAGE_CODE
+                    语言设置,如果需要中文的话,允许更改为 zh-Hans
+                9.TIME_ZONE
+                    指定时区,如果指定为中国时区的话,允许更改为'Asia/Shanghai'
