@@ -182,6 +182,7 @@
             {% url '别名' '参数1' '参数2' %}
         2.在视图上做反向解析
           1.基本解析
+            from django.urls import reverse
             url = reverse('别名')
             url 就是通过别名解析出来的地址
           2.带参数解析
@@ -224,7 +225,7 @@
           import pymysql
           pymysql.install_as_mysqldb()
 
-
+python3 ./manage.py migrate
 
 
 
