@@ -1,5 +1,5 @@
-from django.db.models import Avg, Sum, Count
-from django.shortcuts import render
+from django.db.models import Avg, Sum, Count, F, Q
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 # Create your views here.
@@ -108,3 +108,62 @@ def query_views(request):
     list = Book.objects.filter(id__gt=1).values('publicate_date').annotate(count=Count('title')).filter(count__gt=1).values('publicate_date','count').all()
     print(list)
     return HttpResponse('<script>alert("NB")</script>')
+
+def delete_views(request,id):
+    author = Author.objects.filter(id=id)
+    author.update(active=False)
+    return redirect('/homework')
+
+def homework(request):
+    result = Author.objects.filter(active=True).all()
+    return render(request, 'homework.html', locals())
+
+
+def update_views(request):
+    # author=Author.objects.get(id=1)
+    # author.age=40
+    # author.save()
+
+    author = Author.objects.exclude(id=1)
+    author.update(age=45)
+
+
+    return HttpResponse('万万没想到 啦啦啦啦啦')
+
+def F_views(request):
+    Author.objects.all().update(age=F('age')+10)
+    return HttpResponse('Nice')
+
+def doQ_views(request):
+    authors = Author.objects.filter(Q(id=1)|Q(active=True))
+    for au in authors:
+        print('id:%d,name:%s' %(au.id,au.name))
+    return HttpResponse(1)
+
+def oto_views(request):
+    #声明 wife对象,并指定其author的信息
+    # wife = Wife()
+    # wife.name ='大夫人'
+    # wife.age = 20
+    # wife.author_id = 1
+    # wife.save()
+
+    # wife = Wife()
+    # wife.name = 'Slut'
+    # wife.age = 23
+    # author = Author.objects.get(id=2)
+    # wife.author=author
+    # wife.save()
+
+    #查询 - 正向查询(通过wife查询author)
+    # wife = Wife.objects.get(id=1)
+    # author = wife.author
+    # print(author)
+
+    #查询 - 反向查询(通过author查询wife)
+    author = Author.objects.get(id=1)
+    wife = author.wife
+    print(wife)
+
+
+    return  HttpResponse('OtO ok ')
