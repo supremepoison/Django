@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^author_views/(\d?)$', delete_views),
     url(r'^F_views/$',F_views),
     url(r'^06-doQ',doQ_views),
-    url(r'07-oto/$',oto_views)
+    url(r'07-oto/$',oto_views),
+    url(r'08-otm/$',otm_views),
+    url(r'09-mtm/$',mtm_views),
 
 ]

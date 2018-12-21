@@ -30,7 +30,7 @@ class Author(models.Model):
     age = models.IntegerField(verbose_name='年龄')
     email = models.EmailField(null=True)
     active = models.BooleanField(default=True)
-
+    publishe_set = models.ManyToManyField(Publisher)
     #重写 __str__函数,以便定义对象在后台的表现名称
     def __str__(self):
         return self.name
@@ -49,6 +49,9 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=30,verbose_name='书名')
     publicate_date = models.DateField(verbose_name='发行时间')
+    #增加Publisher(一)对多的引用关系
+    publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,null=True)
+    authors = models.ManyToManyField(Author)
 
     def __str__(self):
         return self.title
